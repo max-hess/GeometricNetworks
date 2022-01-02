@@ -1,4 +1,4 @@
-import segmen_final as sg
+import geometric_networks as gn
 
 from scipy.spatial import cKDTree
 from scipy.spatial.distance import pdist
@@ -12,20 +12,20 @@ radius = 2.5 #[m]
 buffer_size = 20 #[%]
 
 print("Create sorted points.")
-points, position = sg.create_points(path+file, voxel_homo = 0.5)
+points, position = gn.create_points(path+file, voxel_homo = 0.5)
 
 
 print("Make links.")
-links, has_parents = sg.make_links(position, radius)
+links, has_parents = gn.make_links(position, radius)
 
 print("Construct networks.")
-sg.construct_paths(points, links, has_parents)
+gn.construct_paths(points, links, has_parents)
 
 print("Combine networks.")
-labels = sg.combine_networks(points, position, buffer_size)
+labels = gn.combine_networks(points, position, buffer_size)
 
 print("Save LAS file.")
-sg.save_las("segmented_pointcloud.las", labels, position, labels)
+gn.save_las("segmented_pointcloud.las", labels, position, labels)
 
 
 
